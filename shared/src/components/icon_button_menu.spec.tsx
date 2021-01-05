@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import { IconButton, Menu, MenuItem } from '@material-ui/core';
+import { Menu, MenuItem, IconButton } from '@material-ui/core';
+
 import { shallow } from 'enzyme';
 import * as React from 'react';
 
@@ -52,7 +53,7 @@ describe('IconButtonMenu', () => {
     );
     expect(iconButtonMenu.find(Menu).prop('open')).toBe(false);
 
-    const openMenuButton = iconButtonMenu.find(IconButton).first();
+    const openMenuButton = iconButtonMenu.find(IconButton);
     openMenuButton.simulate('click', {
       currentTarget: openMenuButton.getElement(),
     });
