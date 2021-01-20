@@ -19,7 +19,7 @@ import { INotebookModel } from '@jupyterlab/notebook';
 import { FormikBag, FormikProps, withFormik } from 'formik';
 import {
   css,
-  FieldError,
+  COLORS,
   Message,
   SelectInput,
   SubmitButton,
@@ -127,11 +127,11 @@ function getName(notebookName: string) {
 
 const localStyles = stylesheet({
   scroll: {
-    maxHeight: '52vh',
+    maxHeight: '56vh',
     overflowY: 'scroll',
     overflowX: 'hidden',
-    borderTop: '0px solid #777',
-    borderBottom: '0px solid #777',
+    borderTop: '1px solid ' + COLORS.line,
+    borderBottom: '1px solid ' + COLORS.line,
   },
 });
 
@@ -181,15 +181,21 @@ export class InnerSchedulerForm extends React.Component<
   private prepopulateImageUri() {
     this.props.gcpService.getImageUri().then((retrievedImageUri: string) => {
       if (retrievedImageUri || this.props.values.imageUri) {
-        const imageUri = retrievedImageUri
+        let imageUri = retrievedImageUri
           ? retrievedImageUri
           : this.props.values.imageUri;
-        const lastColonIndex = imageUri.lastIndexOf(':');
-        const matchImageUri =
-          lastColonIndex !== -1 ? imageUri.substr(0, lastColonIndex) : imageUri;
-        const matched = ENVIRONMENT_IMAGES.find(i => {
-          return String(i.value).startsWith(matchImageUri);
-        });
+        if (imageUri === CUSTOM_CONTAINER.value) {
+          imageUri = this.props.values.customContainerImageUri;
+        }
+        let matched = undefined;
+        for (const env of ENVIRONMENT_IMAGES.slice(1)) {
+          //checking if all searchKeywords are in the current imageUri
+          //if any one is missing move on to the next environment image
+          if (env.searchKeywords.every(k => String(imageUri).includes(k))) {
+            matched = env;
+            break;
+          }
+        }
         if (matched) {
           this.updateImageUri(String(matched.value));
         } else {
@@ -229,9 +235,9 @@ export class InnerSchedulerForm extends React.Component<
             name="name"
             value={values.name}
             hasError={!!errors.name}
+            error={errors.name}
             onChange={handleChange}
           />
-          <FieldError message={errors.name} />
           <SelectInput
             label="Region"
             name="region"
@@ -304,9 +310,9 @@ export class InnerSchedulerForm extends React.Component<
                 value={values.customContainerImageUri}
                 placeholder="Docker container image uri"
                 hasError={!!errors.customContainerImageUri}
+                error={errors.customContainerImageUri}
                 onChange={handleChange}
               />
-              <FieldError message={errors.customContainerImageUri} />
             </span>
           )}
           <SelectInput
@@ -348,28 +354,24 @@ export class InnerSchedulerForm extends React.Component<
               : 'Execution will start immediately after being submitted'
           }
           error={
-            <span>
-              {status && !status.lastSubmitted && (
-                <Message
-                  asActivity={isSubmitting}
-                  asError={status.asError}
-                  text={status.message}
-                />
-              )}
-              {errors && errors.gcsBucket && (
-                <Message
-                  asActivity={false}
-                  asError={true}
-                  text={errors.gcsBucket}
-                />
-              )}
-              {this.missingPermissions.length > 0 && (
-                <Message
-                  asError={true}
-                  text={`${IAM_MESSAGE}: ${this.missingPermissions.join(', ')}`}
-                />
-              )}
-            </span>
+            status && !status.lastSubmitted ? (
+              <Message
+                asActivity={isSubmitting}
+                asError={status.asError}
+                text={status.message}
+              />
+            ) : errors && errors.gcsBucket ? (
+              <Message
+                asActivity={false}
+                asError={true}
+                text={errors.gcsBucket}
+              />
+            ) : this.missingPermissions.length > 0 ? (
+              <Message
+                asError={true}
+                text={`${IAM_MESSAGE}: ${this.missingPermissions.join(', ')}`}
+              />
+            ) : null
           }
         >
           {this.missingPermissions.length === 0 && (
@@ -618,11 +620,15 @@ function validate(values: SchedulerFormValues) {
   } = values;
   const error: Error = {};
 
+  let nameString = 'Execution';
+  if (scheduleType === RECURRING) {
+    nameString = 'Schedule';
+  }
+
   if (!name) {
-    error.name = 'Execution name is required';
+    error.name = `${nameString} name is required`;
   } else if (!name.match(/^[a-zA-Z0-9_]*$/g)) {
-    error.name =
-      'Execution name can only contain letters, numbers, or underscores.';
+    error.name = `${nameString} name can only contain letters, numbers, or underscores.`;
   }
 
   if (scheduleType === RECURRING && !schedule) {

@@ -6,15 +6,12 @@ exports[`SchedulerDialog Renders closed Dialog without Notebook: Dialog Closed 1
   scroll="body"
 >
   <header
-    className="header_fst2s1z"
+    className="header_frzww1y"
   >
     <span
       className="title_fiw0lep"
     >
-      Create a notebook
-       
-      execution
-       
+      Submit notebook to Executor
       <Badge
         value="alpha"
       />
@@ -25,7 +22,7 @@ exports[`SchedulerDialog Renders closed Dialog without Notebook: Dialog Closed 1
     />
   </header>
   <main
-    className="main_f2ra5xi"
+    className="main_fmi2prb"
   >
     <div
       className="column_fghohlb"
@@ -48,15 +45,12 @@ exports[`SchedulerDialog Renders with Checking IAM Message: IamMessage 1`] = `
   scroll="body"
 >
   <header
-    className="header_fst2s1z"
+    className="header_frzww1y"
   >
     <span
       className="title_fiw0lep"
     >
-      Create a notebook
-       
-      execution
-       
+      Submit notebook to Executor
       <Badge
         value="alpha"
       />
@@ -67,7 +61,7 @@ exports[`SchedulerDialog Renders with Checking IAM Message: IamMessage 1`] = `
     />
   </header>
   <main
-    className="main_f2ra5xi"
+    className="main_fmi2prb"
   >
     <div
       className="column_fghohlb"
@@ -90,15 +84,12 @@ exports[`SchedulerDialog Renders with Python2 warning: Python2Warning 1`] = `
   scroll="body"
 >
   <header
-    className="header_fst2s1z"
+    className="header_frzww1y"
   >
     <span
       className="title_fiw0lep"
     >
-      Create a notebook
-       
-      execution
-       
+      Submit notebook to Executor
       <Badge
         value="alpha"
       />
@@ -109,7 +100,7 @@ exports[`SchedulerDialog Renders with Python2 warning: Python2Warning 1`] = `
     />
   </header>
   <main
-    className="main_f2ra5xi"
+    className="main_fmi2prb"
   >
     <div
       className="column_fghohlb"
@@ -132,15 +123,12 @@ exports[`SchedulerDialog Renders with SchedulerForm: SchedulerForm 1`] = `
   scroll="body"
 >
   <header
-    className="header_fst2s1z"
+    className="header_frzww1y"
   >
     <span
       className="title_fiw0lep"
     >
-      Create a notebook
-       
-      execution
-       
+      Submit notebook to Executor
       <Badge
         value="alpha"
       />
@@ -151,7 +139,7 @@ exports[`SchedulerDialog Renders with SchedulerForm: SchedulerForm 1`] = `
     />
   </header>
   <main
-    className="main_f2ra5xi"
+    className="main_fmi2prb"
   >
     <WithFormik(InnerSchedulerForm)
       gcpService={

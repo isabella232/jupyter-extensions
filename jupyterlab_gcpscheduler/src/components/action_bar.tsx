@@ -50,6 +50,10 @@ export const STYLES = stylesheet({
     color: COLORS.caption,
     fontSize: '12px',
   },
+  errorSpacing: {
+    marginTop: '16px !important',
+    marginBottom: '16px !important',
+  },
 });
 
 /** Funtional Component for defining an action bar with buttons. */
@@ -64,7 +68,7 @@ export function ActionBar(props: Props) {
         </Grid>
       )}
       {props.error && (
-        <Grid item sm={12}>
+        <Grid item sm={12} className={STYLES.errorSpacing}>
           {props.error}
         </Grid>
       )}
