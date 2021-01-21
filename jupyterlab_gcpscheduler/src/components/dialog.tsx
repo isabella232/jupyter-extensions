@@ -32,7 +32,7 @@ import {
 } from 'gcp_jupyterlab_shared';
 import MenuItem from '@material-ui/core/MenuItem';
 import * as React from 'react';
-import { stylesheet } from 'typestyle';
+import { stylesheet, classes } from 'typestyle';
 import { GcpService } from '../service/gcp';
 import {
   GetPermissionsResponse,
@@ -105,10 +105,12 @@ const localStyles = stylesheet({
   main: {
     backgroundColor: COLORS.white,
     color: COLORS.base,
-    padding: '24px',
     width: '480px',
     ...BASE_FONT,
     ...csstips.vertical,
+  },
+  spacing: {
+    padding: '24px',
   },
 });
 
@@ -172,7 +174,7 @@ export class SchedulerDialog extends React.Component<Props, State> {
           <header className={localStyles.header}>
             <span className={localStyles.title}>
               Submit notebook to Executor
-              <Badge value="alpha" />
+              <Badge value="experimental" />
             </span>
             <IconButtonMenu
               icon={<MenuIcon />}
@@ -199,7 +201,7 @@ export class SchedulerDialog extends React.Component<Props, State> {
     const hasNotebook = !!(request && request.notebook);
     if (submittedMessage) {
       return (
-        <div className={css.column}>
+        <div className={classes(css.column, localStyles.spacing)}>
           <Message text={submittedMessage.message} />
           <ActionBar onDialogClose={this._onDialogClose}>
             <a
@@ -219,7 +221,7 @@ export class SchedulerDialog extends React.Component<Props, State> {
     ) {
       // For now, only exclude Python 2 kernels
       return (
-        <div className={css.column}>
+        <div className={classes(css.column, localStyles.spacing)}>
           <Message asError={true} text={PYTHON2_WARNING} />
           <ActionBar onDialogClose={this._onDialogClose} />
         </div>
@@ -238,7 +240,7 @@ export class SchedulerDialog extends React.Component<Props, State> {
           onShowFormChange={this._onShowFormChange}
         />
       ) : (
-        <div className={css.column}>
+        <div className={classes(css.column, localStyles.spacing)}>
           <Message asActivity={true} text="Checking IAM Permissions" />
           <ActionBar onDialogClose={this._onDialogClose} />
         </div>

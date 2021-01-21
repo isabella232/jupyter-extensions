@@ -63,13 +63,13 @@ interface State {
 const localStyles = stylesheet({
   headerContainer: {
     ...csstips.horizontal,
-    padding: '16px',
+    padding: '16px 16px 0px 16px',
   },
   header: {
     fontWeight: 500,
     fontSize: '16px',
     margin: 0,
-    padding: '8px 12px',
+    padding: '8px 12px 0px 12px',
     ...csstips.flex,
   },
   panel: {
@@ -286,7 +286,7 @@ export class GcpScheduledJobsPanel extends React.Component<Props, State> {
       <div className={localStyles.panel}>
         <div className={localStyles.headerContainer}>
           <header className={localStyles.header}>
-            {TITLE_TEXT} <Badge value="alpha" />
+            {TITLE_TEXT} <Badge value="experimental" />
           </header>
           <IconButton title="Refresh" onClick={this.handleRefresh}>
             <RefreshIcon />
