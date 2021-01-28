@@ -232,8 +232,8 @@ export class GcpService {
     try {
       const projectId = await this.projectId;
       const params: { [k: string]: string } = { filter };
-      //TODO: uncomment when sorting works
-      //params['orderBy'] = 'createTime';
+      //TODO: change to createTime when that works
+      params['orderBy'] = 'name desc';
       if (pageSize) {
         params['pageSize'] = String(pageSize);
       }
@@ -284,8 +284,8 @@ export class GcpService {
     try {
       const projectId = await this.projectId;
       const params: { [k: string]: string } = {};
-      //TODO: uncomment when sorting works
-      //params['orderBy'] = 'createTime';
+      //TODO: change to createTime when that works
+      params['orderBy'] = 'name desc';
       if (pageSize) {
         params['pageSize'] = String(pageSize);
       }
@@ -406,9 +406,7 @@ export class GcpService {
   ): Promise<Execution | undefined> {
     try {
       const latestExecutionResponse = await this.listExecutions(
-        `execution_template.labels.schedule_id="${scheduleId}"`,
-        1,
-        undefined
+        `execution_template.labels.schedule_id="${scheduleId}"`
       );
       if (latestExecutionResponse.executions.length !== 0) {
         return latestExecutionResponse.executions[0];

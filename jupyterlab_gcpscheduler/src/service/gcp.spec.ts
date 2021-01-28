@@ -408,7 +408,7 @@ describe('GcpService', () => {
       });
       expect(mockSubmit).toHaveBeenCalledWith({
         path: `${NOTEBOOKS_API_BASE}/projects/test-project/locations/-/executions`,
-        params: { filter: '' },
+        params: { filter: '', orderBy: 'name desc' },
       });
     });
 
@@ -423,7 +423,7 @@ describe('GcpService', () => {
       expect(executions).toEqual({ executions: [], pageToken: undefined });
       expect(mockSubmit).toHaveBeenCalledWith({
         path: `${NOTEBOOKS_API_BASE}/projects/test-project/locations/-/executions`,
-        params: { filter: '' },
+        params: { filter: '', orderBy: 'name desc' },
       });
     });
 
@@ -434,7 +434,7 @@ describe('GcpService', () => {
       expect(executions).toEqual({ executions: [], pageToken: undefined });
       expect(mockSubmit).toHaveBeenCalledWith({
         path: `${NOTEBOOKS_API_BASE}/projects/test-project/locations/-/executions`,
-        params: { filter: '' },
+        params: { filter: '', orderBy: 'name desc' },
       });
     });
 
@@ -456,6 +456,7 @@ describe('GcpService', () => {
           filter: '',
           pageSize: '10',
           pageToken: 'abc123',
+          orderBy: 'name desc',
         },
       });
     });
@@ -483,6 +484,7 @@ describe('GcpService', () => {
           filter: '',
           pageSize: '10',
           pageToken: 'abc123',
+          orderBy: 'name desc',
         },
       });
     });
@@ -521,20 +523,20 @@ describe('GcpService', () => {
       });
       expect(mockSubmit).toHaveBeenCalledWith({
         path: `${NOTEBOOKS_API_BASE}/projects/test-project/locations/-/schedules`,
-        params: {},
+        params: { orderBy: 'name desc' },
       });
       expect(mockSubmit).toHaveBeenCalledWith({
         path: `${NOTEBOOKS_API_BASE}/projects/test-project/locations/-/executions`,
         params: {
-          pageSize: '1',
           filter: 'execution_template.labels.schedule_id="schedule1"',
+          orderBy: 'name desc',
         },
       });
       expect(mockSubmit).toHaveBeenCalledWith({
         path: `${NOTEBOOKS_API_BASE}/projects/test-project/locations/-/executions`,
         params: {
-          pageSize: '1',
           filter: 'execution_template.labels.schedule_id="schedule2"',
+          orderBy: 'name desc',
         },
       });
     });
@@ -550,7 +552,7 @@ describe('GcpService', () => {
       expect(schedules).toEqual({ schedules: [], pageToken: undefined });
       expect(mockSubmit).toHaveBeenCalledWith({
         path: `${NOTEBOOKS_API_BASE}/projects/test-project/locations/-/schedules`,
-        params: {},
+        params: { orderBy: 'name desc' },
       });
     });
 
@@ -561,7 +563,7 @@ describe('GcpService', () => {
       expect(schedules).toEqual({ schedules: [], pageToken: undefined });
       expect(mockSubmit).toHaveBeenCalledWith({
         path: `${NOTEBOOKS_API_BASE}/projects/test-project/locations/-/schedules`,
-        params: {},
+        params: { orderBy: 'name desc' },
       });
     });
 
@@ -582,6 +584,7 @@ describe('GcpService', () => {
         params: {
           pageSize: '10',
           pageToken: 'abc123',
+          orderBy: 'name desc',
         },
       });
     });
@@ -608,6 +611,7 @@ describe('GcpService', () => {
         params: {
           pageSize: '10',
           pageToken: 'abc123',
+          orderBy: 'name desc',
         },
       });
     });
